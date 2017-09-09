@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ChatBot</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="/css/style.css"/>  
+  <link rel="stylesheet" href="/boostrap/bootstrap.min.css"/>
+  <script src="/js/jquery.min.js"></script>
+  <script src='https://code.responsivevoice.org/responsivevoice.js'></script>  
+  <script src='/js/setup.js'></script> 
+  <script src='/js/chatbot.js'></script>   
+</head>
+<body>
+
+	<!-- page 1 -->
+	<div id="page1">	
+		<div class="welcome">Welcome to ChatBot2.0</div>
+		<div class="subtitle">a java based chatbot for helping students in their study</div>
+		<div><img src="img/preloader.gif" alt="preloader" width="200px" onclick="start()"/></div>
+	</div>
+	
+	
+	<!-- page 2 -->
+	<div id="page2">
+		<header class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3 logo">
+					<span class="gray-txt">Chat</span><span class="blue-txt">Bot</span><br/>
+					<span class="subtitle">FINAL YEAR PROJECT</span>
+				</div>
+				<div class="col-sm-2">
+				</div>	
+				<div class="col-sm-5">
+				</div>	
+				<div class="col-sm-1 item">
+					ABOUT
+				</div>	
+				<div class="col-sm-1" id="speaker-switch">
+					<img src="img/speaker-on.png" width="30px"/>
+				</div>			
+			</div>		
+		</header>
+
+		<div class="container-fluid">
+			<div class="message" id="botMsg">Hi!</div>
+		</div>
+
+		<footer id="footer">
+			<input type="hidden" x-webkit-speech="true"></input>
+			<form><input type="text" id="userMsg" placeholder="Ask Question" autocomplete="off"/></form>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+	*{box-sizing:border-box;}
+	a{text-decoration:none;color:#333;}
+	body{
+		overflow:hidden;
+		width:100%!important;
+		background-image: url("../img/bg4.jpg");
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-size: 300px;
+		background-position: bottom right;
+	}
+  	#page1 {text-align:center;}
+	#page1 img{
+		display: none;
+	}
+	#page1 button:hover{
+		background-color:#076491;
+		border-color:#076491;
+		color: #fff;
+	}	
+ 	#page1 .welcome{
+		display: none;
+		color: #666;
+		padding: 13% 0 10px 0;
+		text-align: center;
+		font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+		font-size: 40px;
+		font-style: normal;
+		font-variant: normal;
+		font-weight: 500;
+		line-height: 55px;			
+	} 
+	#page1 .subtitle{
+		display: none;
+		color: #666;
+	}
+  
+	
+	
+	
+	
+	#page2{
+		margin: 2% 4%;
+		position: relative;
+	}
+	#page2 #speaker-switch img{
+		padding-top: 4px;
+		cursor: pointer;
+	}
+	#page2 header{
+		padding: 10px 0;
+	}
+	#page2 header .logo{
+		color: #999;
+		font-size: 25px;
+		font-weight: bold;
+		line-height: 15px;
+		font-family: Tahoma, Verdana, Segoe, sans-serif;
+	}
+	#page2 header .logo span{
+		padding: 0;
+		margin: 0;
+	}
+	#page2 header .logo .subtitle{
+		font-size: 10px;
+		font-weight: normal;
+	}
+	#page2 header .item{
+		color: #999;
+		padding: 10px 4px;
+		font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+		font-size: 12px;
+	}
+	#page2 header .item:hover{
+		color: #333;
+	}
+	#page2 .message{
+		color: #666;
+		padding: 15%;
+		text-align: center;
+		font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+		font-size: 50px;
+		font-style: normal;
+		font-variant: normal;
+		font-weight: 500;
+		line-height: 55px;	
+		min-height: 550px;
+	}
+	#page2 footer {
+		border-top: 1px solid #f5f5f5;
+		padding: 20px 0;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		/* Set the fixed height of the footer here */
+	}
+	#page2 footer input{
+		color: #167c76;
+		width: 100%;
+		padding: 20px;
+		font-size: 25px;
+		height: 50px;
+		border: 0px;
+		border-radius: 4px;
+		background-color: #e6ffe6;
+	}
+	#page2 input:focus { 
+		outline: none; 
+	}
+	#page2 .blue-txt{color: #a0db8e;}
+	#page2 .gray-txt{color: #ccc;}
+	#page2{display:none;}
