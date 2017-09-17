@@ -58,6 +58,12 @@ $(document).ready(function(){
 		}
 	}
 	
+	$("#userForm").submit(function(){
+		$("#botMsg").empty();
+		$("#botMsg").append('<img src="img/loading.gif" width="150px"/>');
+		var msg = document.getElementById( 'userMsg' ).value;
+		doAjaxCall("userResponse="+msg,"html");
+	});	
 	
 // do ajax call ------------------------------------------------------
 	function doAjaxCall(urlParameter,dataType)
@@ -76,6 +82,13 @@ $(document).ready(function(){
 			}
 		});
 		$("#botMsg").empty();
+		if(responseData!=null && responseData.length>50 && responseData.length<100)
+			$("#botMsg").css({"font-size":"25px","line-height":"30px"});
+		if(responseData!=null && responseData.length>100)
+			$("#botMsg").css({"font-size":"18px","line-height":"20px"});
+		else
+			$("#botMsg").css({"font-size":"50px","line-height":"50px"});
+		
 		document.getElementById("botMsg").innerHTML = responseData;
 		if(speaker=="on")
 			responsiveVoice.speak(responseData);
