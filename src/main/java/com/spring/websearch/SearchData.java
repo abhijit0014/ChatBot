@@ -1,16 +1,19 @@
 package com.spring.websearch;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class SearchData {
 	private String text="";
-	public String googleTitle;
-	public String bingTitle;
-	public String bingDescription;
-	public String beingDefination;
-	public String beingSubtitle;
-	public String wikiDescription;
-	public String googleAns;
-	public String googleDefination;
-	public String googleDescription;
+	public String googleTitle=null;
+	public String bingTitle=null;
+	public String bingDescription=null;
+	public String beingDefination=null;
+	public String beingSubtitle=null;
+	public String wikiDescription=null;
+	public String googleAns=null;
+	public String googleDefination=null;
+	public String googleDescription=null;
 	
 	public String getText() {
 		return text;

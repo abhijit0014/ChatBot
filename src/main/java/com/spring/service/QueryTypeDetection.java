@@ -1,16 +1,12 @@
 package com.spring.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
-import org.mockito.internal.util.collections.ArrayUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QTypeDetection {
-	private String qType=null;
-	private String rType=null;
-	private String rSize=null;
-	private boolean detectionFlag = false;
+public class QueryTypeDetection {
+	private String queryType=null;
+	private String responseType=null;
+	private String responseSize=null;
 	private String WHwords[][]={
 			{"who",		"person",	"Defination"},
 			{"where",	"place",	"short"},		
@@ -33,7 +29,7 @@ public class QTypeDetection {
 	
 	public void detect(String query)
 	{
-		qType = null; rSize = null; qType=null;
+		queryType = null; responseSize = null; responseType=null;
 		detectWhQuery(query);
 	}
 	
@@ -47,10 +43,9 @@ public class QTypeDetection {
 			{
 				if(WHwords[i][0].equals(words[0]))
 				{
-					rType = WHwords[i][1];
-					rSize = WHwords[i][2];
-					qType = "Interrogative";
-					detectionFlag = true;
+					responseType = WHwords[i][1];
+					responseSize = WHwords[i][2];
+					queryType = "Interrogative";
 					break;
 				}
 			}
@@ -58,12 +53,12 @@ public class QTypeDetection {
 	}
 
 	public String getqType() {
-		return qType;
+		return queryType;
 	}
 	public String getrType() {
-		return rType;
+		return responseType;
 	}
 	public String getrSize() {
-		return rSize;
+		return responseSize;
 	}
 }

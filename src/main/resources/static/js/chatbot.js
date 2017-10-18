@@ -82,12 +82,12 @@ $(document).ready(function(){
 			}
 		});
 		$("#botMsg").empty();
-		if(responseData!=null && responseData.length>50 && responseData.length<100)
-			$("#botMsg").css({"font-size":"25px","line-height":"30px"});
-		if(responseData!=null && responseData.length>100)
-			$("#botMsg").css({"font-size":"18px","line-height":"20px"});
-		else
-			$("#botMsg").css({"font-size":"50px","line-height":"50px"});
+		if(responseData!=null && responseData.length>60 && responseData.length<=300)
+			$("#botMsg").css({"font-size":"25px","line-height":"30px","padding-top":"4%"});
+		if(responseData!=null && responseData.length>300)
+			$("#botMsg").css({"font-size":"18px","line-height":"20px","padding-top":"4%"});
+		if(responseData!=null && responseData.length<=60)
+			$("#botMsg").css({"font-size":"50px","line-height":"50px","padding-top":"5%"});
 		
 		document.getElementById("botMsg").innerHTML = responseData;
 		if(speaker=="on")

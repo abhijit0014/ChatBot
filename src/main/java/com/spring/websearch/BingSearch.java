@@ -52,9 +52,10 @@ public class BingSearch extends Thread
 		String bingText=null;
 		Document doc = Jsoup.parse(this.htmlData);		
 		searchData.bingTitle = doc.getElementsByClass("b_entityTitle").text();
-		//String subtitle = doc.getElementsByClass("b_entitySubTitle").text();		
+		searchData.bingTitle = doc.getElementsByClass("b_focusTextLarge").text();	
 		searchData.bingDescription = doc.getElementsByClass("b_lBottom b_snippet").text();		
 		searchData.beingDefination = doc.getElementsByClass("rwrl_padref").text(); 
+		//searchData.beingDefination = doc.getElementsByClass("rwrl_padref").text(); 
 		searchData.beingDefination = doc.getElementsByClass("dc_mn").text(); 
 		
 		Elements elements = doc.getElementsByClass("b_snippet");

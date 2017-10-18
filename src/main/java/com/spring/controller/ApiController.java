@@ -1,31 +1,27 @@
 package com.spring.controller;
 
-import javax.annotation.Resource;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.service.Response;
-import com.spring.service.ResponseGeneration;
-import com.spring.websearch.Search;
+import com.spring.aiAgent.ResponseGenerator;
+import com.spring.aiAgent.Response;
 
 @RestController
 @RequestMapping("/chatbot/api")
 public class ApiController 
 {
-	@Resource
-	private ResponseGeneration rs;
-	@Resource
-	private Response response;
-	
+	private ResponseGenerator responseGenerator;
+
+	public ApiController(ResponseGenerator responseGeneration, Response response) {
+		super();
+		this.responseGenerator = responseGeneration;
+	}
+
 	@PostMapping("/")
-	@ResponseBody
 	public String generateResponse(@RequestParam("userResponse") String userResponse)
 	{
-		rs.reply(response, userResponse);
-		return response.getResponse();
+		return responseGenerator.getResponse(userResponse);
 	}
 }

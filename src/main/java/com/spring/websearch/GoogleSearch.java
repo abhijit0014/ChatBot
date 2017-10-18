@@ -59,7 +59,8 @@ public class GoogleSearch extends Thread
 		
 		searchData.googleDefination= doc.getElementsByClass("_sPg").text();	
 		searchData.googleDescription = doc.getElementsByClass("_tXc").text();
-		searchData.googleAns= doc.getElementsByClass("_XWk").text();		
+		searchData.googleAns= doc.getElementsByClass("_XWk").text();
+		System.out.println("p="+searchData.googleAns);
 		
 	}
 }

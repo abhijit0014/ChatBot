@@ -1,11 +1,11 @@
-package com.spring.service;
+package com.spring.aiAgent;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class Response {
-	private String response;
-	private String youtube;
+	private String response = null;
+	private String youtube = null;
 	public String getResponse() {
 		return response;
 	}
@@ -17,5 +17,9 @@ public class Response {
 	}
 	public void setYoutube(String youtube) {
 		this.youtube = youtube;
+	}
+	public void reset() {
+		this.response = null;
+		this.youtube = null;
 	}
 }

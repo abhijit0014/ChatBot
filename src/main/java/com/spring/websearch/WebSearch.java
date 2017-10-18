@@ -3,14 +3,16 @@ package com.spring.websearch;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Search {
+public class WebSearch {
 
 	private String userQuery;
 	private SearchData searchData = new SearchData();
 
 	public SearchData result(String userQuery) {
 		this.userQuery = userQuery;
+		this.searchData.reset();
 		this.webSpiders();
+		System.out.println(searchData.toString());
 		return searchData;
 	}
 	
