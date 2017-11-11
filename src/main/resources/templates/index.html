@@ -1,55 +1,245 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>ChatBot</title>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="stylesheet" href="/css/style.css"/>  
-  <link rel="stylesheet" href="/boostrap/bootstrap.min.css"/>
-  <script src="/js/jquery.min.js"></script>
+	<title>ChatBot</title>
+	<script src="/js/jquery.min.js"></script>
   <script src='https://code.responsivevoice.org/responsivevoice.js'></script>  
   <script src='/js/setup.js'></script> 
-  <script src='/js/chatbot.js'></script>   
+  <script src='/js/chatbot.js'></script>  
+<style>
+*{
+	margin: 0px; !important;
+}
+body {
+  background-color: #f3f3f3;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+section {
+  width: 400px;
+  min-height:100%;
+  background-color: #fff;
+  padding: 0 0px 0px 15px;
+}
+.chat{
+	position: relative;
+	min-height: 100%;
+	min-width: 100%;
+}
+.chat ul {
+	position:absolute;
+	bottom: 80px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	padding-right: 15px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding-bottom: 10px;
+}
+
+.chat ul li {
+  margin: 45px 0 0 0;
+  font-weight: 300;
+}
+
+.chat ul li a.user {
+  display: block;
+  color: #333;
+}
+
+.chat ul li a.user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f3f3f3;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.chat ul li .date {
+  font-size: 14px;
+  color: #a6a6a6;
+}
+
+.chat ul li .message {
+  display: block;
+  padding: 10px;
+  position: relative;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.chat ul li .message:before {
+  content: '';
+  position: absolute;
+}
+
+.chat ul li .message:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+
+.chat ul li .message.blur p {
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+}
+
+.chat ul li .message.blur .hider {
+  opacity: 1;
+  z-index: 1;
+}
+
+.chat ul li .message p {
+  margin: 0;
+  padding: 0;
+  transition: all 0.1s;
+}
+
+.chat ul li .message .hider {
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: -10px;
+  text-align: center;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: all 0.1s;
+}
+
+.chat ul li .message .hider span {
+  display: block;
+  position: relative;
+  top: 50%;
+  font-size: 16px;
+  transform: translateY(-50%);
+}
+
+.chat ul li.other a.user {
+  float: right;
+}
+
+.chat ul li.other .date {
+  float: right;
+  margin: -20px 10px 0 0;
+}
+
+.chat ul li.other .message {
+  margin: 0 60px 0 0;
+  background-color: #413f3c;
+}
+
+.chat ul li.other .message:before {
+  margin: -9px -16px 0 0;
+  right: 0;
+}
+
+.chat ul li.other .message:after {
+  content: '';
+  right: 0;
+  margin: 0 -15px 0 0;
+}
+
+.chat ul li.you a.user {
+  float: left;
+}
+
+.chat ul li.you .date {
+  float: left;
+  margin: -20px 0 0 10px;
+}
+
+.chat ul li.you .message {
+  margin: 0 0 0 60px;
+  background-color: #0099CC;
+}
+
+.chat ul li.you .message:before {
+  margin: -9px 0 0 -16px;
+  left: 0;
+}
+
+.chat ul li.you .message:after {
+  content: '';
+  left: 0;
+  margin: 0 0 0 -15px;
+}
+.inputbox{
+	position:relative;
+	margin-right: 20px;
+}
+.text-input{
+	position:absolute;
+	bottom: 15px;
+	width: 100%;
+	padding: 10px;
+	border: 0px;
+	background-color: #ccc;
+	border-radius: 5px;
+	line-height: 25px;
+	font-size: 20px;
+}
+.videoWrapper {
+	width: 100%!important;
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+	margin: 0 auto;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.container {
+	width: 100%;
+  display: flex; /* or inline-flex */
+}
+.item8{
+	width: 100%;
+	padding: 30px;
+}
+.logo{
+	position: absolute;
+	left: 60%;
+	top: 40%;
+	z-index: -1;
+	margin: auto;
+	font-size: 40px;
+	font-weight: bold;
+	color: #ccc;
+}
+	</style>
 </head>
 <body>
-
-	<!-- page 1 -->
-	<div id="page1">	
-		<div class="welcome">Welcome to ChatBot2.0</div>
-		<div class="subtitle">a java based chatbot for helping students in their study</div>
-		<div><img src="img/preloader.gif" alt="preloader" width="200px" onclick="start()"/></div>
-	</div>
-	
-	
-	<!-- page 2 -->
-	<div id="page2">
-		<header class="container-fluid">
-			<div class="row">
-				<div class="col-sm-3 logo">
-					<span class="gray-txt">Chat</span><span class="blue-txt">Bot</span><br/>
-					<span class="subtitle">FINAL YEAR PROJECT</span>
-				</div>
-				<div class="col-sm-2">
-				</div>	
-				<div class="col-sm-5">
-				</div>	
-				<div class="col-sm-1 item">
-					ABOUT
-				</div>	
-				<div class="col-sm-1" id="speaker-switch">
-					<img src="img/speaker-on.png" width="30px"/>
-				</div>			
-			</div>		
-		</header>
-
-		<div class="container-fluid">
-			<div class="message" id="botMsg">Hi!</div>
+	<div class="container">
+		<div class="item4">
+			<section>
+			  <div class="chat">
+				<ul id="chatscreen">
+				</ul>
+			  </div>
+			  <div class="inputbox">
+			  	<input type="hidden" x-webkit-speech="true"></input>
+				<input class="text-input" id="userMsg"></input>
+			  </div>
+			</section>		
 		</div>
-
-		<footer id="footer">
-			<input type="hidden" x-webkit-speech="true"></input>
-			<form action="javascript:void(0)" id="userForm"><input type="text" id="userMsg" placeholder="Ask Question" autocomplete="off"/></form>
-		</footer>
+		<div class="item8">
+				<div class="logo">ChatBot</div>
+				<div id="youtube" class="videoWrapper">
+					<!-- Copy & Pasted from YouTube -->
+				</div>	
+		</div>
 	</div>
 </body>
 </html>

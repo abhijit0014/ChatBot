@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Add Query</title>
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
@@ -43,49 +43,36 @@
 	<div class="container-fluid">
 	  <div class="row content">
 	  
-		<div class="col-sm-2 sidenav">
-			<h4 class="logo"><small>Admin Panel</small></h4>
-			<hr/>
-			<ul class="nav nav-pills nav-stacked">
-				<li><a href="#section1">Home</a></li>
-				<li><a href="#section2">Friends</a></li>
-				<li><a href="#section3">Family</a></li>
-				<li><a href="#section3">Photos</a></li>
-			</ul>
-		</div>
-
+		<div class="col-md-2 ">
+			<div class="sidenav">			
+				<div th:replace="adminLayout :: leftpan">...</div>
+			</div>			
+		</div>	  
 		<!-- add training data-->
 		<div class="col-sm-5">
-		  <h4><small>Add Training Data</small></h4>
-		  <hr>
-			<form>
+		  <h3><small>Add Query</small></h3>
+		  <hr/>
+			<form th:object="${query}" th:action="@{/admin/addQuery}" method="post">
 			  <div class="form-group">
 				<label>Query</label>
-				<input type="text" class="form-control">
-			  </div>
-			  <div class="form-group">
-				<label>Response</label>
-				<input type="text" class="form-control">
-			  </div>
-			  <div class="form-group">
-				<label>Intent</label>
-				<input type="text" class="form-control">
+				<input type="text" th:field="*{query}" name="query" class="form-control"/>
 			  </div>			  
 			  <button type="submit" class="btn btn-default">Submit</button>
 			</form>
 		</div>
 		
 		<div class="col-sm-5">
-			<h4><small>Update Training Data</small></h4>
+			<h3><small>Latest Queries</small></h3>
 			<hr/>
-			<form>
-			  <div class="form-group">
-				<label>Search Query</label>
-				<input type="text" class="form-control">
-			  </div>
-			</form>
-			
-			
+			<div>
+			   <th:block th:each="query : ${queryList}">
+			      <div class="col-sm-12" style="border:1px solid white;background: #f5f5f5;padding-top:10px;padding-bottom:10px;">
+			         <div class="col-sm-8"><span th:text="${query.query}"></span></div>
+			         <div class="col-sm-2"><a th:href="@{/admin/addResponse/?(queryid=${query.id})}">ADD</a></div>
+			         <div class="col-sm-2"><a th:href="@{/admin/deleteQuery/(id=${query.id})}">DELETE</a></div>
+			      </div>
+			   </th:block>			
+			</div>
 		</div>
 		
 	  </div>

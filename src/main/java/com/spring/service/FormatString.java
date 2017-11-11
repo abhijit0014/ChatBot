@@ -11,7 +11,8 @@ public class FormatString
 	public String format(String str)
 	{
 		this.str = str;
-		removeWords();
+		if (str!=null)
+			removeWords();
 		return this.str;
 	}
 	private void removeWords()

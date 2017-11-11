@@ -12,28 +12,27 @@ import com.spring.websearch.WebSearch;
 public class WebAnsware 
 {
 	private boolean dataFlag = false;
+	private String response;
 	private QueryTypeDetection queryTypeDetection;
 	private WebSearch webSearch;
 	private FormatString fS;
 	private SearchData searchData;
-	private Response response;
 	
 	public WebAnsware(QueryTypeDetection queryTypeDetection, WebSearch webSearch, FormatString fS,
-			SearchData searchData, Response response) {
+			SearchData searchData) {
 		super();
 		this.queryTypeDetection = queryTypeDetection;
 		this.webSearch = webSearch;
 		this.fS = fS;
 		this.searchData = searchData;
-		this.response = response;
 	}
 
-	public Response getAnsware(String query)
+	public String getAnsware(String query)
 	{
-		queryTypeDetection.detect(query);
-		searchData = webSearch.result(query);
+		response = null;
 		dataFlag = false;
-		
+		queryTypeDetection.detect(query);
+		searchData = webSearch.result(query);		
 		if(queryTypeDetection.getrSize()!=null)
 		{
 			switch(queryTypeDetection.getrSize()){
@@ -41,13 +40,15 @@ public class WebAnsware
 				case "Description": descriptionTypeAns(); break;
 				case "Defination": definationTypeAns(); break;
 			}
+			if(response==null)definationTypeAns();
+			if(response==null)descriptionTypeAns();
 		}else{
 			shortTypeAns();
 			if(dataFlag==false) descriptionTypeAns();
-			if(dataFlag==false) definationTypeAns();			
+			if(dataFlag==false) definationTypeAns();
 		}
 		//format string
-		response.setResponse(fS.format(response.getResponse()));
+		response = fS.format(response);
 		return response;
 	}
 	
@@ -56,54 +57,54 @@ public class WebAnsware
 		if (searchData.bingTitle!=null && !searchData.bingTitle.isEmpty() && dataFlag==false) 
 		{
 			if(Utility.wordCount(searchData.bingTitle)>1) {
-				response.setResponse(searchData.bingTitle);
+				response=searchData.bingTitle;
 				dataFlag=true;
 			}
 		}
 		if (searchData.googleAns!=null && !searchData.googleAns.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.googleAns);
+			response=searchData.googleAns;
 			dataFlag=true;
 		}
 	}
 	private void descriptionTypeAns()
-	{			
+	{
 		if (searchData.googleDescription!=null && !searchData.googleDescription.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.googleDescription);
+			response=searchData.googleDescription;
 			dataFlag=true;
 		}
 		if (searchData.bingDescription!=null && !searchData.bingDescription.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.bingDescription);
+			response=searchData.bingDescription;
 			dataFlag=true;
 		}		
 		if (searchData.wikiDescription!=null && !searchData.wikiDescription.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.wikiDescription);
+			response=searchData.wikiDescription;
 			dataFlag=true;
 		}
 		if (searchData.beingDefination!=null && !searchData.beingDefination.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.beingDefination);
+			response=searchData.beingDefination;
 			dataFlag=true;
 		}			
 	}
 	private void definationTypeAns()
-	{			
+	{
+		if (searchData.beingDefination!=null && !searchData.beingDefination.isEmpty() && dataFlag==false) {
+			response=searchData.beingDefination;
+			dataFlag=true;
+		}		
 		if (searchData.googleDescription!=null && !searchData.googleDescription.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.googleDescription);
+			response=searchData.googleDescription;
 			dataFlag=true;
 		}
 		if (searchData.googleDefination!=null && !searchData.googleDefination.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.googleDefination);
+			response=searchData.googleDefination;
 			dataFlag=true;
 		}	
-		if (searchData.beingDefination!=null && !searchData.beingDefination.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.beingDefination);
-			dataFlag=true;
-		}
 		if (searchData.bingDescription!=null && !searchData.bingDescription.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.bingDescription);
+			response=searchData.bingDescription;
 			dataFlag=true;
 		}			
 		if (searchData.wikiDescription!=null && !searchData.wikiDescription.isEmpty() && dataFlag==false) {
-			response.setResponse(searchData.wikiDescription);
+			response=searchData.wikiDescription;
 			dataFlag=true;
 		}		
 	}

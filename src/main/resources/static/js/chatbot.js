@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	var counter = 0;
 	var speaker = 'on';
+	$( "#chatscreen" ).append(GetBotMsg("I am your virtual assistant. How can I help you."));
 	
 	$("#speaker-switch").click(function(){
 		$switch = $("#speaker-switch img").attr("src");
@@ -14,6 +15,9 @@ $(document).ready(function(){
 		}
 	});
 	
+	$( "#userMsg" ).focus(function() {
+		document.getElementById( 'userMsg' ).value = "";
+	});
 
 //voice recognation ------------------------------------
 
@@ -34,7 +38,7 @@ $(document).ready(function(){
 				if (event.results[i].isFinal) {
 					microphoneCSS(0);
 					final_transcript += event.results[i][0].transcript;
-					document.getElementById( 'userMsg' ).value = final_transcript;
+					$( "#chatscreen" ).append(GetUserMsg(final_transcript));
 					doAjaxCall("userResponse="+final_transcript,"html");
 					//doAjaxCall(final_transcript);
 				} 
@@ -50,20 +54,37 @@ $(document).ready(function(){
 	{
 		if(flag>0) counter++;
 		if(counter==1){
-			$("#botMsg").empty();
-			$("#botMsg").append('<img src="img/loading.gif" width="150px"/>');
+			$("#youtube").empty();
+			$("#youtube").css({"padding-top":"25%"});
+			$("#youtube").append('<center><img src="img/loading.gif" width="150px"/></center>');
 		}
 		if(flag==0) {
 			counter = 0;
 		}
 	}
-	
+/*	
 	$("#userForm").submit(function(){
 		$("#botMsg").empty();
+		$("#botMsg").css({"padding-top":"10%"});
 		$("#botMsg").append('<img src="img/loading.gif" width="150px"/>');
 		var msg = document.getElementById( 'userMsg' ).value;
+		$( "#chatscreen" ).append(GetUserMsg(msg));
 		doAjaxCall("userResponse="+msg,"html");
 	});	
+*/
+	document.getElementById('userMsg').onkeypress = function(e){
+	    if (!e) e = window.event;
+	    var keyCode = e.keyCode || e.which;
+	    if (keyCode == '13'){
+			$("#youtube").empty();
+			$("#youtube").css({"padding-top":"10%","text-align":"center"});
+			$("#youtube").append('<img src="img/loading.gif" width="150px"/>');
+			var msg = document.getElementById( 'userMsg' ).value;
+			document.getElementById( 'userMsg' ).value = "";
+			$( "#chatscreen" ).append(GetUserMsg(msg));
+			doAjaxCall("userResponse="+msg,"html");
+	    }
+	  }
 	
 // do ajax call ------------------------------------------------------
 	function doAjaxCall(urlParameter,dataType)
@@ -72,7 +93,7 @@ $(document).ready(function(){
 		$.ajax({
 			method: "POST",
 			async: false,
-			url: 'http://localhost:8181/chatbot/api/',
+			url: '/chatbot/api/?id=2',
 			data: urlParameter,
 			dataType: dataType,
 			success:function(data){
@@ -81,17 +102,57 @@ $(document).ready(function(){
 				
 			}
 		});
+		GenerateMessage(responseData);
+	}
+// generatemessage-----------------------------------------------------------------
+	function GenerateMessage(responseData)
+	{
 		$("#botMsg").empty();
-		if(responseData!=null && responseData.length>60 && responseData.length<=300)
-			$("#botMsg").css({"font-size":"25px","line-height":"30px","padding-top":"4%"});
-		if(responseData!=null && responseData.length>300)
-			$("#botMsg").css({"font-size":"18px","line-height":"20px","padding-top":"4%"});
-		if(responseData!=null && responseData.length<=60)
-			$("#botMsg").css({"font-size":"50px","line-height":"50px","padding-top":"5%"});
-		
-		document.getElementById("botMsg").innerHTML = responseData;
-		if(speaker=="on")
-			responsiveVoice.speak(responseData);
-	}	
+		words = responseData.split("&&");
+		if(words[1]=="youtube")
+		{
+			$("#botMsg").css({"font-size":"25px","line-height":"30px","padding-top":"2%","text-align": "center"});
+			document.getElementById("youtube").innerHTML = GetYoutubeCode(words[0]);
+		}
+		else
+		{
+			if(window.innerWidth<400)
+			{
+				$("#botMsg").css({"font-size":"16px","line-height":"18px","padding-top":"10%","text-align": "justify"});
+			}
+			setTimeout(function() {}, 5000);
+			$("#youtube").empty();
+			if(speaker=="on")
+				responsiveVoice.speak(responseData);
+			setTimeout(function() {}, 10000);
+			$( "#chatscreen" ).append(GetBotMsg(responseData));
+		}		
+	}
+// getYoutubeCode----------------------------------------------------------------
+	function GetYoutubeCode(str)
+	{
+		return '<iframe src="https://www.youtube.com/embed/'+str+'?autoplay=1&rel=0" frameborder="0" allowfullscreen></iframe>';
+	}
+// 
+	function GetUserMsg(str)
+	{
+		return '<li class="other">'+
+				'<a class="user" href="#"><img alt="" src="img/user.png" /></a>'+
+				'<div class="message">'+
+				'<p>'+str+'</p>'+
+				'</div></li>';
+	}
+	function GetBotMsg(str)
+	{	  
+		return '<li class="you">'+
+		'<a class="user" href="#"><img alt="" src="img/bot.jpg" /></a>'+
+		'<div class="message">'+
+		'<p>'+str+'</p>'+
+		'</div></li>';
+	}
+	
+	
+	
+	
 });
  

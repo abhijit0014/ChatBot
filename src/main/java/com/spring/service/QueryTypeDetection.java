@@ -35,9 +35,10 @@ public class QueryTypeDetection {
 	
 	private void detectWhQuery(String query)
 	{
+		query = query.toLowerCase();
 		String words[]=null;
 		words=query.split("\\s");
-		if (words!=null && (words[0].charAt(0)=='w' || words[0].charAt(0)=='h'))
+		if (words!=null && ( words[0].charAt(0)=='w' || words[0].charAt(0)=='h' || words[0].charAt(0)=='W' || words[0].charAt(0)=='H'))
 		{
 			for (int i = 0; i < WHwords.length; i++)
 			{
